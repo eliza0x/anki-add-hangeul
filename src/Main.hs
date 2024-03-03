@@ -31,7 +31,7 @@ xs !? n
     _ -> r (k-1)) (const Nothing) xs n
 
 br = "<br>" -- ankiで改行は<br>
-bar = "-----" -- ankiで改行は<br>
+bar = "" -- ankiで改行は<br>
 spacing = br ++ bar ++ br
 
 unlines' [] = []
@@ -57,7 +57,7 @@ parse t = let
   pairUp _ = []
 
   extractText :: XML.Node -> T.Text
-  extractText (XML.NodeElement (XML.Element _ _ nodes)) = foldr (\n t -> T.append t $ extractText n) "" nodes 
+  extractText (XML.NodeElement (XML.Element _ _ nodes)) = foldl (\t n -> T.append t $ extractText n) "" nodes 
   extractText (XML.NodeContent t) = t
   extractText _ = ""
 
